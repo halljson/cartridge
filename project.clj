@@ -1,4 +1,4 @@
-(defproject sonian/cartridge "1.0.0"
+(defproject cartridge "1.0.0"
   :description "HTTP response playback for clj-http"
   :url "https://www.github.com/sonian/cartridge"
   :license {:name "Eclipse Public License"

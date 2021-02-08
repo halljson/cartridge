@@ -90,12 +90,19 @@
   (with-open [output-writer (writer (file path))]
     (pprint (transform-responses responses serialize-body) output-writer)))
 
+(defn default-reader
+  "A default reader, for when we don't know what's coming in."
+  [t v]
+  {:tag t :value v})
+
 (defn read-responses-from-disk
   "reads responses from a path via edn/read-string"
   [path]
   (let [response-file (file path)]
     (when (.exists response-file)
-      (transform-responses (edn/read-string (slurp path)) deserialize-body))))
+      (transform-responses (edn/read-string {:default default-reader}
+                                            (slurp path))
+                           deserialize-body))))
 
 (defn saved-request-key
   "Keys a request for storage. Default `key-fn`"
